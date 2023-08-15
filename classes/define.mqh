@@ -9,5 +9,6 @@
 enum ENUM_JSON_TYPE
   {
    JSON_TYPE_ARRAY = 1,
+   JSON_TYPE_OBJECT,
   };
 //+------------------------------------------------------------------+

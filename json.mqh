@@ -7,6 +7,7 @@
 #property link      "https://www.mql5.com/en/users/franciscogomes5"
 
 #include "classes\array.mqh"
+#include "classes\object.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -38,6 +39,8 @@ CJson::~CJson()
 bool CJson::Parse(const string parse)
   {
    if(SetJson(new CJsonArray, parse))
+      return true;
+   if(SetJson(new CJsonObject, parse))
       return true;
    return false;
   }
