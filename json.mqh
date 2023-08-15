@@ -20,6 +20,7 @@ public:
    CJsonBase        *operator[](const int i) { return m_json.At(i); }
    bool              Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }
+   virtual int       Type(void)const { return m_json.Type(); }
 private:
    bool              SetJson(CJsonBase *json, const string parse);
   };

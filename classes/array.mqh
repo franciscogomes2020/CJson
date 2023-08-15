@@ -12,6 +12,8 @@
 //+------------------------------------------------------------------+
 class CJsonArray : public CJsonBase
   {
+public:
+   virtual int       Type(void)const { return JSON_TYPE_ARRAY; }
 protected:
    virtual ushort    CharToOpen(void)const { return '['; }
    virtual ushort    CharToClose(void)const { return ']'; }
