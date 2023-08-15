@@ -41,15 +41,28 @@ bool AssertEquals(const Type1 valueResult, const Type2 valueWaited, const string
 int TestCJson(void)
   {
    CJson json;
+
+// array
    ASSERT_EQUALS((json="[]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
    ASSERT_EQUALS(json.Stringfy(), "[]");
    ASSERT_EQUALS(json.Total(), 0);
 
+// object
    ASSERT_EQUALS((json="{}"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json.Stringfy(), "{}");
    ASSERT_EQUALS(json.Total(), 0);
+
+// array with 1 object
+   ASSERT_EQUALS((json="[{}]"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
+   ASSERT_EQUALS(json.Stringfy(), "[{}]");
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json[0].Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0].Stringfy(), "{}");
+   ASSERT_EQUALS(json[0].Total(), 0);
+
    return 0;
   }
 //+------------------------------------------------------------------+
