@@ -16,11 +16,27 @@ int runTestCJson = TestCJson();
 //+-----------------------------------------------------------------*/
 //| defines to make tests                                            |
 //+------------------------------------------------------------------+
-#define ASSERT_EQUALS(x,y) if(x!=y){ Comment("Test fail: ", (x) ," is not equal ", (y), " at LINE ", __LINE__); DebugBreak(); }
+#define ASSERT_EQUALS(x,y) AssertEquals((x),(y),__FUNCTION__,__LINE__);
 
+template<typename Type1, typename Type2>
+bool AssertEquals(const Type1 valueResult, const Type2 valueWaited, const string function=NULL, const int line=NULL)
+  {
+   if(valueResult == valueWaited)
+      return true;
+   Comment("Test fail: ", valueResult," is not equal ", valueWaited,
+           (function==NULL?"": " in "+function)," ",
+           (line==NULL?"":" at line "+IntegerToString(line))
+          );
+   DebugBreak();
+   return false;
+  }
+
+//+------------------------------------------------------------------+
+//| init of tests                                                    |
+//+------------------------------------------------------------------+
 #include <Json\json.mqh>
 //+------------------------------------------------------------------+
-//|                                                                  |
+//| func main to tests                                               |
 //+------------------------------------------------------------------+
 int TestCJson(void)
   {
