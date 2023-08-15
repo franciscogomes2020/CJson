@@ -15,7 +15,8 @@ class CJsonBase : public CArrayObj
   {
 public:
    virtual bool      Parse(const string parse);
-   virtual string    Stringfy(void)const { return "jsonbase"; }
+   virtual string    Stringfy(void)const=NULL;
+   virtual int       Type(void)const=NULL;
 protected:
    virtual bool      ProcessParse(const string parse, const int start, const int end);
    virtual string    NormalizeString(string text) { return text; }

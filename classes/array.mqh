@@ -14,6 +14,7 @@ class CJsonArray : public CJsonBase
   {
 public:
    virtual int       Type(void)const { return JSON_TYPE_ARRAY; }
+   virtual string    Stringfy(void)const;
 protected:
    virtual ushort    CharToOpen(void)const { return '['; }
    virtual ushort    CharToClose(void)const { return ']'; }
@@ -21,6 +22,16 @@ protected:
    virtual bool      IsMyChar(const string processed, const ushort c);
    virtual bool      IsMyString(const string text);
   };
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+string CJsonArray::Stringfy(void)const
+  {
+   string text = "";
+   text += CharToString((char)CharToOpen());
+   text += CharToString((char)CharToClose());
+   return text;
+  }
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+

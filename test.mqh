@@ -27,6 +27,7 @@ int TestCJson(void)
    CJson json;
    ASSERT_EQUALS((json="[]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
+   ASSERT_EQUALS(json.Stringfy(), "[]");
    return 0;
   }
 //+------------------------------------------------------------------+
