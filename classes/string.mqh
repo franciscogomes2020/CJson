@@ -19,13 +19,35 @@ public:
    virtual string    Value(void)const { return m_string; }
    virtual string    Stringfy(void)const { return StringFormat("\"%s\"",m_string); }
    virtual int       Parse(const string parse);
+   static bool       RemoveStringAspos(string &text);
   };
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
 int CJsonString::Parse(const string parse)
   {
-   m_string = parse;
+   string text = parse;
+   StringTrimLeft(text);
+   StringTrimRight(text);
+   RemoveStringAspos(text);
+   m_string = text;
    return StringLen(parse);
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool CJsonString::RemoveStringAspos(string &text)
+  {
+   int total = StringLen(text);
+   if(total < 2)
+      return false;
+   ushort first = StringGetCharacter(text,0),
+          last = StringGetCharacter(text,total-1);
+   if(first != last)
+      return false;
+   if(first != '\'' && first != '"')
+      return false;
+   text = StringSubstr(text,1,total-2);
+   return true;
   }
 //+------------------------------------------------------------------+

@@ -9,6 +9,7 @@
 #define CJSON_CLASS
 #include "classes\array.mqh"
 #include "classes\object.mqh"
+#include "classes\keyvalue.mqh"
 #include "classes\string.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -26,6 +27,7 @@ public:
    virtual int       Type(void)const { return m_json.Type(); }
    int               Total(void)const { return m_json.Total(); }
    virtual string    Value(void)const { return m_json.Value(); }
+   virtual string    Key(void)const { return m_json.Key(); }
 private:
    bool              SetJson(CJsonBase *json, const string parse, int &charReads);
   };
@@ -47,6 +49,9 @@ int CJson::Parse(const string parse)
       return charReads;
    if(SetJson(new CJsonObject, parse, charReads))
       return charReads;
+   if(SetJson(new CJsonKeyValue, parse, charReads))
+      return charReads;
+// if rearchs here so classific as string
    delete m_json;
    m_json = new CJsonString;
    return m_json.Parse(parse);

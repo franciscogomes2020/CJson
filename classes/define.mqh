@@ -10,6 +10,7 @@ enum ENUM_JSON_TYPE
   {
    JSON_TYPE_ARRAY = 1,
    JSON_TYPE_OBJECT,
+   JSON_TYPE_KEY_VALUE,
    JSON_TYPE_STRING,
   };
 //+------------------------------------------------------------------+

@@ -18,7 +18,9 @@ public:
    virtual string    Stringfy(void)const=NULL;
    virtual int       Type(void)const=NULL;
    virtual string    Value(void)const { return ""; }
+   virtual string    Key(void)const { return ""; }
 protected:
+   static string     GetContent(const string parse, const int start, const int end);
    virtual int       ProcessParse(const string parse, const int start, const int end);
    virtual string    NormalizeString(string text) { return text; }
    virtual bool      IsCharToIgnore(const ushort c);
@@ -74,5 +76,15 @@ bool CJsonBase::IsCharToIgnore(const ushort c)
          return true;
      }
    return false;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+string CJsonBase::GetContent(const string parse,const int start,const int end)
+  {
+   if(StringLen(parse) == 0)
+      return "";
+   const int total = end - start +1;
+   return StringSubstr(parse,start,total);
   }
 //+------------------------------------------------------------------+
