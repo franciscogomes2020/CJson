@@ -95,38 +95,55 @@ int TestCJson(void)
 
 // key --> value using simple aspo to value
    ASSERT_EQUALS((json="key:'value'"), true);
-   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
    ASSERT_EQUALS(json.Value(), "value");
    ASSERT_EQUALS(json.Key(), "key");
 
 // key --> value using double aspo to value
    ASSERT_EQUALS((json="key:\"value\""), true);
-   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
    ASSERT_EQUALS(json.Value(), "value");
    ASSERT_EQUALS(json.Key(), "key");
 
 // key --> value using simple aspo to key and value
    ASSERT_EQUALS((json="'key':'value'"), true);
-   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
    ASSERT_EQUALS(json.Value(), "value");
    ASSERT_EQUALS(json.Key(), "key");
 
 // key --> value using double aspo to key and simple aspo to value
    ASSERT_EQUALS((json="\"key\":'value'"), true);
-   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
    ASSERT_EQUALS(json.Value(), "value");
    ASSERT_EQUALS(json.Key(), "key");
 
 // key --> value using double aspo to key and value
    ASSERT_EQUALS((json="\"key\":\"value\""), true);
-   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
    ASSERT_EQUALS(json.Value(), "value");
    ASSERT_EQUALS(json.Key(), "key");
+
+// object with 1 key
+   ASSERT_EQUALS((json="{name:\"default\"}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"name\":\"default\"}");
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json.KeyExist("name"),true);
+   ASSERT_EQUALS(json["name"].Value(),"default");
+   ASSERT_EQUALS(json["name"].Type(),JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["name"].Stringfy(),"\"name\":\"default\"");
+
+// object with 1 key without aspos and single aspos on string
+   ASSERT_EQUALS((json="{name:'default'}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"name\":\"default\"}");
+   ASSERT_EQUALS(json.Total(), 1);
+
    return 0;
   }
 //+------------------------------------------------------------------+
