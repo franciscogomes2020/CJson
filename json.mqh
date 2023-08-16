@@ -18,14 +18,14 @@ protected:
    CJsonBase         *m_json;
 public:
                     ~CJson();
-   bool              operator=(const string parse) { return Parse(parse); }
+   bool              operator=(const string parse) { return (bool)Parse(parse); }
    CJsonBase        *operator[](const int i) { return m_json.At(i); }
-   bool              Parse(const string parse);
+   int               Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }
    virtual int       Type(void)const { return m_json.Type(); }
    int               Total(void)const { return m_json.Total(); }
 private:
-   bool              SetJson(CJsonBase *json, const string parse);
+   bool              SetJson(CJsonBase *json, const string parse, int &charReads);
   };
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -38,23 +38,25 @@ CJson::~CJson()
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool CJson::Parse(const string parse)
+int CJson::Parse(const string parse)
   {
-   if(SetJson(new CJsonArray, parse))
-      return true;
-   if(SetJson(new CJsonObject, parse))
-      return true;
-   return false;
+   int charReads;
+   if(SetJson(new CJsonArray, parse, charReads))
+      return charReads;
+   if(SetJson(new CJsonObject, parse, charReads))
+      return charReads;
+   return 0;
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool CJson::SetJson(CJsonBase *json, const string parse)
+bool CJson::SetJson(CJsonBase *json, const string parse, int &charReads)
   {
    if(CheckPointer(m_json) == POINTER_DYNAMIC)
       delete m_json;
    m_json = json;
-   return m_json.Parse(parse);
+   charReads = m_json.Parse(parse);
+   return (bool)charReads;
   }
 //+------------------------------------------------------------------+
 //|                                                                  |

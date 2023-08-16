@@ -14,11 +14,11 @@
 class CJsonBase : public CArrayObj
   {
 public:
-   virtual bool      Parse(const string parse);
+   virtual int       Parse(const string parse);
    virtual string    Stringfy(void)const=NULL;
    virtual int       Type(void)const=NULL;
 protected:
-   virtual bool      ProcessParse(const string parse, const int start, const int end);
+   virtual int       ProcessParse(const string parse, const int start, const int end);
    virtual string    NormalizeString(string text) { return text; }
    virtual bool      IsCharToIgnore(const ushort c);
    virtual bool      ProcessChildren(const string parse, const int start, const int end, const string myString, const int myStart, const int myEnd) { return true; }
@@ -28,7 +28,7 @@ protected:
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool CJsonBase::Parse(const string parse)
+int CJsonBase::Parse(const string parse)
   {
    const string text = NormalizeString(parse);
    return ProcessParse(text,0,StringLen(text)-1);
@@ -36,7 +36,7 @@ bool CJsonBase::Parse(const string parse)
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool CJsonBase::ProcessParse(const string parse, const int start, const int end)
+int CJsonBase::ProcessParse(const string parse, const int start, const int end)
   {
    int myStart = -1, myEnd;
    int i;
@@ -55,9 +55,12 @@ bool CJsonBase::ProcessParse(const string parse, const int start, const int end)
       myString+= CharToString((uchar)c);
      }
    if(!IsMyString(myString))
-      return false;
-   myEnd = i;
-   return ProcessChildren(parse,start,end,myString,myStart,myEnd);
+      return 0;
+   const int count = i;
+   myEnd = count -1;
+   if(!ProcessChildren(parse,start,end,myString,myStart,myEnd))
+      return 0;
+   return count;
   }
 //+------------------------------------------------------------------+
 //|                                                                  |

@@ -106,22 +106,35 @@ bool CJsonArray::ProcessChildren(const string parse,const int start,const int en
    int total = StringLen(myString);
    if(total <= 2)
       return true;
-   const string content = StringSubstr(parse,1,total-2);
-   if(content == "") //content is void
+// get normal my content without spaces
+   total = end-start+1;
+   string content = StringSubstr(parse,start+1,total-2);
+   if(content == "")
       return true;
+// redefine total
+   total = StringLen(content);
 // create jsons
    CJsonBase *cJson;
-   string elements[];
-   total = StringSplit(content,Separator(),elements);
+   int reads;
+   ushort c;
+   string contentTrunk;
    for(int i=0; i<total; i++)
      {
+      c = StringGetCharacter(content,i);
+      if(IsCharToIgnore(c))
+         continue;
+      if(c == Separator())
+         continue;
+      contentTrunk = StringSubstr(content,i);
       cJson = GetCJsonNewPointer();
-      if(!cJson.Parse(elements[i]))
+      reads = cJson.Parse(contentTrunk);
+      if(reads == 0)
         {
          delete cJson;
          return false;
         }
       Add(cJson);
+      i += reads;
      }
    return true;
   }
