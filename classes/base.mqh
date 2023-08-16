@@ -17,6 +17,7 @@ public:
    virtual int       Parse(const string parse);
    virtual string    Stringfy(void)const=NULL;
    virtual int       Type(void)const=NULL;
+   virtual string    Value(void)const { return ""; }
 protected:
    virtual int       ProcessParse(const string parse, const int start, const int end);
    virtual string    NormalizeString(string text) { return text; }

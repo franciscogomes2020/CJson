@@ -9,6 +9,7 @@
 #define CJSON_CLASS
 #include "classes\array.mqh"
 #include "classes\object.mqh"
+#include "classes\string.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -24,6 +25,7 @@ public:
    string            Stringfy(void)const { return m_json.Stringfy(); }
    virtual int       Type(void)const { return m_json.Type(); }
    int               Total(void)const { return m_json.Total(); }
+   virtual string    Value(void)const { return m_json.Value(); }
 private:
    bool              SetJson(CJsonBase *json, const string parse, int &charReads);
   };
@@ -45,7 +47,9 @@ int CJson::Parse(const string parse)
       return charReads;
    if(SetJson(new CJsonObject, parse, charReads))
       return charReads;
-   return 0;
+   delete m_json;
+   m_json = new CJsonString;
+   return m_json.Parse(parse);
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
