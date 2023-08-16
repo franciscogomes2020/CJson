@@ -6,6 +6,7 @@
 #property copyright "Copyright 2023, Francisco Gomes da Silva"
 #property link      "https://www.mql5.com/en/users/franciscogomes5"
 
+#define CJSON_CLASS
 #include "classes\array.mqh"
 #include "classes\object.mqh"
 //+------------------------------------------------------------------+
@@ -22,6 +23,7 @@ public:
    bool              Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }
    virtual int       Type(void)const { return m_json.Type(); }
+   int               Total(void)const { return m_json.Total(); }
 private:
    bool              SetJson(CJsonBase *json, const string parse);
   };
@@ -53,5 +55,12 @@ bool CJson::SetJson(CJsonBase *json, const string parse)
       delete m_json;
    m_json = json;
    return m_json.Parse(parse);
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+CJsonBase *GetCJsonNewPointer(void)
+  {
+   return new CJson;
   }
 //+------------------------------------------------------------------+

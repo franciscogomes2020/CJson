@@ -12,3 +12,15 @@ enum ENUM_JSON_TYPE
    JSON_TYPE_OBJECT,
   };
 //+------------------------------------------------------------------+
+//| this code is to create a instace of CJson from any place         |
+//+------------------------------------------------------------------+
+#ifndef CJSON_CLASS
+//+------------------------------------------------------------------+
+//| this code will generate a warning no #inport declaration in your |
+//| metaeditor, but is not a error                                   |
+//| it is because CJson file is not referencied yet                  |
+//+------------------------------------------------------------------+
+class CJsonBase;
+CJsonBase *GetCJsonNewPointer(void);
+#endif
+//+------------------------------------------------------------------+

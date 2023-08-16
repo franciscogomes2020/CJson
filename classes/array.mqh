@@ -18,9 +18,11 @@ public:
 protected:
    virtual ushort    CharToOpen(void)const { return '['; }
    virtual ushort    CharToClose(void)const { return ']'; }
+   virtual ushort    Separator(void)const { return ','; }
    static int        IndexToClose(const string text, const ushort charToOpen, const ushort charToClose);
    virtual bool      IsMyChar(const string processed, const ushort c);
    virtual bool      IsMyString(const string text);
+   virtual bool      ProcessChildren(const string parse, const int start, const int end, const string myString, const int myStart, const int myEnd);
   };
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -29,6 +31,17 @@ string CJsonArray::Stringfy(void)const
   {
    string text = "";
    text += CharToString((char)CharToOpen());
+   const string separator = CharToString((char)Separator());
+   CJsonBase *child;
+   const int total = Total();
+   const int last = total -1;
+   for(int i=0; i<total; i++)
+     {
+      child = At(i);
+      text += child.Stringfy();
+      if(i < last)
+         text += separator;
+     }
    text += CharToString((char)CharToClose());
    return text;
   }
@@ -82,5 +95,34 @@ bool CJsonArray::IsMyString(const string text)
    const int indexThatClose = IndexToClose(text,CharToOpen(),CharToClose());
    const bool result = (indexThatClose == last);
    return result;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool CJsonArray::ProcessChildren(const string parse,const int start,const int end,const string myString,const int myStart,const int myEnd)
+  {
+//clear my array
+   Clear();
+   int total = StringLen(myString);
+   if(total <= 2)
+      return true;
+   const string content = StringSubstr(parse,1,total-2);
+   if(content == "") //content is void
+      return true;
+// create jsons
+   CJsonBase *cJson;
+   string elements[];
+   total = StringSplit(content,Separator(),elements);
+   for(int i=0; i<total; i++)
+     {
+      cJson = GetCJsonNewPointer();
+      if(!cJson.Parse(elements[i]))
+        {
+         delete cJson;
+         return false;
+        }
+      Add(cJson);
+     }
+   return true;
   }
 //+------------------------------------------------------------------+
