@@ -93,6 +93,40 @@ int TestCJson(void)
    ASSERT_EQUALS(json[1].Stringfy(), "{}");
    ASSERT_EQUALS(json[1].Total(), 0);
 
+// key --> value using simple aspo to value
+   ASSERT_EQUALS((json="key:'value'"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
+   ASSERT_EQUALS(json.Value(), "value");
+   ASSERT_EQUALS(json.Key(), "key");
+
+// key --> value using double aspo to value
+   ASSERT_EQUALS((json="key:\"value\""), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
+   ASSERT_EQUALS(json.Value(), "value");
+   ASSERT_EQUALS(json.Key(), "key");
+
+// key --> value using simple aspo to key and value
+   ASSERT_EQUALS((json="'key':'value'"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
+   ASSERT_EQUALS(json.Value(), "value");
+   ASSERT_EQUALS(json.Key(), "key");
+
+// key --> value using double aspo to key and simple aspo to value
+   ASSERT_EQUALS((json="\"key\":'value'"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
+   ASSERT_EQUALS(json.Value(), "value");
+   ASSERT_EQUALS(json.Key(), "key");
+
+// key --> value using double aspo to key and value
+   ASSERT_EQUALS((json="\"key\":\"value\""), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_KEY_VALUE);
+   ASSERT_EQUALS(json.Stringfy(), "\"key\":\"value\"");
+   ASSERT_EQUALS(json.Value(), "value");
+   ASSERT_EQUALS(json.Key(), "key");
    return 0;
   }
 //+------------------------------------------------------------------+
