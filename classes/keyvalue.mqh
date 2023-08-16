@@ -18,9 +18,10 @@ protected:
 public:
    virtual int       Type(void)const { return CheckPointer(m_value) == POINTER_INVALID ? JSON_TYPE_UNDEFINED : m_value.Type(); }
    virtual string    Key(void)const { return m_key; }
-   virtual void      Key(const string key) { m_key = key; }
-   virtual bool      KeyExist(const string key)const { return m_key == key; }
+   virtual CJsonBase *Key(const string key) { return m_value.Key(key); }
+   virtual bool      KeyExist(const string key)const { return m_value.KeyExist(key); }
    virtual string    Value(void)const { return m_value.Value(); }
+   virtual int       Total(void)const { return m_value.Total(); }
    virtual string    Stringfy(void)const { return StringFormat("\"%s\":%s", m_key, m_value.Stringfy()); }
    virtual CJsonBase *ValuePointer(void) { return m_value; }
 protected:
@@ -46,7 +47,7 @@ bool CJsonKeyValue::IsMyString(const string text)
   {
    string array[];
    int total = StringSplit(text,':',array);
-   if(total != 2)
+   if(total < 2)
       return false;
    if(!IsKey(array[0]))
       return false;
@@ -75,12 +76,11 @@ bool CJsonKeyValue::IsKey(string key)
 bool CJsonKeyValue::ProcessChildren(const string parse, const int start, const int end, const string myString, const int myStart, const int myEnd)
   {
    string content = GetContent(parse,myStart,myEnd);
-   string array[];
-   const int total = StringSplit(content,':',array);
-   if(total != 2)
+   const int indexOfSeprator = StringFind(content,":");
+   if(indexOfSeprator < 0)
       return false;
-   string key = array[0];
-   string value = array[1];
+   string key = StringSubstr(content,0,indexOfSeprator);
+   string value = StringSubstr(content,indexOfSeprator +1);
    CJsonBase *json = GetCJsonNewPointer();
    if(!(bool)json.Parse(value))
      {

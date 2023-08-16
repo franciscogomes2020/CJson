@@ -17,8 +17,11 @@ public:
    virtual int       Parse(const string parse);
    virtual string    Stringfy(void)const=NULL;
    virtual int       Type(void)const=NULL;
+   virtual int       Total(void)const { return CArrayObj::Total(); }
    virtual string    Value(void)const { return ""; }
    virtual string    Key(void)const { return ""; }
+   virtual CJsonBase* Key(const string key) { return NULL; }
+   virtual bool      KeyExist(const string key)const { return false; }
    virtual CJsonBase *ValuePointer(void) { return NULL; }
 protected:
    static string     GetContent(const string parse, const int start, const int end);
