@@ -150,6 +150,22 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json.Stringfy(), "{\"v1\":\"defaultV1\",\"v2\":\"defaultV2\"}");
 
+// array with sequence of objects
+   ASSERT_EQUALS((json="[{value1:'value1IsAString',entry:{description:'textDescription'}}]"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json.Stringfy(), "[{\"value1\":\"value1IsAString\",\"entry\":{\"description\":\"textDescription\"}}]");
+   ASSERT_EQUALS(json[0].Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0].Total(), 2);
+   ASSERT_EQUALS(json[0].KeyExist("value1"), true);
+   ASSERT_EQUALS(json[0]["value1"].Value(), "value1IsAString");
+   ASSERT_EQUALS(json[0].KeyExist("value2"), false);
+   ASSERT_EQUALS(json[0].KeyExist("entry"), true);
+   ASSERT_EQUALS(json[0]["entry"].Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0]["entry"].Total(), 1);
+   ASSERT_EQUALS(json[0]["entry"].KeyExist("description"), true);
+   ASSERT_EQUALS(json[0]["entry"]["description"].Value(), "textDescription");
+
    return 0;
   }
 //+------------------------------------------------------------------+
