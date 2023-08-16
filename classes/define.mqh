@@ -12,6 +12,7 @@ enum ENUM_JSON_TYPE
    JSON_TYPE_OBJECT,
    JSON_TYPE_KEY_VALUE,
    JSON_TYPE_STRING,
+   JSON_TYPE_UNDEFINED,
   };
 //+------------------------------------------------------------------+
 //| this code is to create a instace of CJson from any place         |

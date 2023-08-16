@@ -19,6 +19,7 @@ public:
    virtual int       Type(void)const=NULL;
    virtual string    Value(void)const { return ""; }
    virtual string    Key(void)const { return ""; }
+   virtual CJsonBase *ValuePointer(void) { return NULL; }
 protected:
    static string     GetContent(const string parse, const int start, const int end);
    virtual int       ProcessParse(const string parse, const int start, const int end);

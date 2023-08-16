@@ -144,6 +144,12 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Stringfy(), "{\"name\":\"default\"}");
    ASSERT_EQUALS(json.Total(), 1);
 
+// object with 2 key
+   ASSERT_EQUALS((json="{v1:'defaultV1',v2:'defaultV2'}"), true);
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"v1\":\"defaultV1\",\"v2\":\"defaultV2\"}");
+
    return 0;
   }
 //+------------------------------------------------------------------+
