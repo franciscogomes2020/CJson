@@ -63,6 +63,18 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0].Stringfy(), "{}");
    ASSERT_EQUALS(json[0].Total(), 0);
 
+// array with 2 object
+   ASSERT_EQUALS((json="[{},{}]"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
+   ASSERT_EQUALS(json.Stringfy(), "[{},{}]");
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS(json[0].Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0].Stringfy(), "{}");
+   ASSERT_EQUALS(json[0].Total(), 0);
+   ASSERT_EQUALS(json[1].Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[1].Stringfy(), "{}");
+   ASSERT_EQUALS(json[1].Total(), 0);
+   
    return 0;
   }
 //+------------------------------------------------------------------+
