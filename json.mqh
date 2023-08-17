@@ -25,10 +25,11 @@ public:
    bool              operator=(const string parse) { return (bool)Parse(parse); }
    CJson*            operator[](const int i) { return m_json.At(i); }
    CJson*            operator[](const string key) { return Key(key); }
+   bool              operator==(ENUM_JSON_TYPE type) { return m_json.Type() == type; }
    virtual CJsonBase* Key(const string key) { return m_json.Key(key); }
    int               Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }
-   virtual int       Type(void)const { return m_json.Type(); }
+   virtual int       Type(void)const { return CheckPointer(m_json) == POINTER_INVALID ? JSON_TYPE_UNDEFINED : m_json.Type(); }
    virtual int       Total(void)const { return m_json.Total(); }
    virtual string    Value(void)const { return m_json.Value(); }
    string            Key(void)const { return m_json.Key(); }
