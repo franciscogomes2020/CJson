@@ -10,7 +10,6 @@
 
 #include "classes\array.mqh"
 #include "classes\object.mqh"
-#include "classes\keyvalue.mqh"
 #include "classes\undefined.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -25,7 +24,7 @@ public:
    bool              operator=(const string parse) { return (bool)Parse(parse); }
    CJson*            operator[](const int i) { return m_json.At(i); }
    CJson*            operator[](const string key) { return Key(key); }
-   bool              operator==(ENUM_JSON_TYPE type) { return m_json.Type() == type; }
+   bool              operator==(ENUM_JSON_TYPE type) { return Type() == type; }
    virtual CJsonBase* Key(const string key) { return m_json.Key(key); }
    int               Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }
@@ -57,8 +56,6 @@ int CJson::Parse(const string parse)
    if(SetJson(new CJsonArray, parse, charReads))
       return charReads;
    if(SetJson(new CJsonObject, parse, charReads))
-      return charReads;
-   if(SetJson(new CJsonKeyValue, parse, charReads))
       return charReads;
 // if rearchs here so classific as string
    delete m_json;

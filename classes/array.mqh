@@ -15,6 +15,7 @@ class CJsonArray : public CJsonBase
 public:
    virtual int       Type(void)const { return JSON_TYPE_ARRAY; }
    virtual string    Stringfy(void)const;
+   virtual string    Stringfy(const int i)const;
 protected:
    virtual ushort    CharToOpen(void)const { return '['; }
    virtual ushort    CharToClose(void)const { return ']'; }
@@ -32,18 +33,24 @@ string CJsonArray::Stringfy(void)const
    string text = "";
    text += CharToString((char)CharToOpen());
    const string separator = CharToString((char)Separator());
-   CJsonBase *child;
    const int total = Total();
    const int last = total -1;
    for(int i=0; i<total; i++)
      {
-      child = At(i);
-      text += child.Stringfy();
+      text += Stringfy(i);
       if(i < last)
          text += separator;
      }
    text += CharToString((char)CharToClose());
    return text;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+string CJsonArray::Stringfy(const int i)const
+  {
+   CJsonBase *child = At(i);
+   return child.Stringfy();
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
