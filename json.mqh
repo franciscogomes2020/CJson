@@ -24,7 +24,8 @@ public:
    bool              operator=(const string parse) { return (bool)Parse(parse); }
    CJson*            operator[](const int i) { return m_json.At(i); }
    CJson*            operator[](const string key) { return Key(key); }
-   bool              operator==(ENUM_JSON_TYPE type) { return Type() == type; }
+   bool              operator==(ENUM_JSON_TYPE type)const { return JsonType() == type; }
+   bool              operator!=(ENUM_JSON_TYPE type)const { return JsonType() != type; }
    virtual CJsonBase* Key(const string key) { return m_json.Key(key); }
    int               Parse(const string parse);
    string            Stringfy(void)const { return m_json.Stringfy(); }

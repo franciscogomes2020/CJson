@@ -143,6 +143,7 @@ int TestCJson(void)
 // operators
    ASSERT_EQUALS(json = new CJson,true);
    ASSERT_EQUALS(json == JSON_TYPE_UNDEFINED,true);
+   ASSERT_EQUALS(json != JSON_TYPE_STRING,true);
    return 0;
   }
 //+------------------------------------------------------------------+
