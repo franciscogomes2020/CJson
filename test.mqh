@@ -166,6 +166,8 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0]["entry"].KeyExist("description"), true);
    ASSERT_EQUALS(json[0]["entry"]["description"].Value(), "textDescription");
 
+// operator =
+   ASSERT_EQUALS(json = new CJson,true);
    return 0;
   }
 //+------------------------------------------------------------------+
