@@ -21,6 +21,7 @@ protected:
    CJsonBase         *m_json;
 public:
                     ~CJson();
+   bool              operator=(CJsonBase *json) { return SetJson(json); }
    bool              operator=(const string parse) { return (bool)Parse(parse); }
    CJson*            operator[](const int i) { return m_json.At(i); }
    CJson*            operator[](const string key) { return Key(key); }
@@ -33,6 +34,8 @@ public:
    string            Key(void)const { return m_json.Key(); }
    virtual bool      KeyExist(const string key)const { return m_json.KeyExist(key); }
    virtual CJsonBase *ValuePointer(void) { return m_json.ValuePointer(); }
+protected:
+   virtual bool      SetJson(CJsonBase *json);
 private:
    bool              SetJson(CJsonBase *json, const string parse, int &charReads);
   };
@@ -66,11 +69,19 @@ int CJson::Parse(const string parse)
 //+------------------------------------------------------------------+
 bool CJson::SetJson(CJsonBase *json, const string parse, int &charReads)
   {
+   SetJson(json);
+   charReads = m_json.Parse(parse);
+   return (bool)charReads;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool CJson::SetJson(CJsonBase *json)
+  {
    if(CheckPointer(m_json) == POINTER_DYNAMIC)
       delete m_json;
    m_json = json;
-   charReads = m_json.Parse(parse);
-   return (bool)charReads;
+   return true;
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
