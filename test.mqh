@@ -127,6 +127,15 @@ int TestCJson(void)
    ASSERT_EQUALS(json = new CJson,true);
    ASSERT_EQUALS(json == JSON_TYPE_UNDEFINED,true);
    ASSERT_EQUALS(json != JSON_TYPE_STRING,true);
+
+// insert value directly to object string
+   ASSERT_EQUALS(json = "foo",true);
+   ASSERT_EQUALS(json == JSON_TYPE_STRING,true);
+   ASSERT_EQUALS(json.Value(),"foo");
+   ASSERT_EQUALS(json.Value("{}"),true);
+   ASSERT_EQUALS(json == JSON_TYPE_STRING,true);
+   ASSERT_EQUALS(json.Value(),"{}");
+
    return 0;
   }
 //+------------------------------------------------------------------+

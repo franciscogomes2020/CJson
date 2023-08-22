@@ -20,6 +20,7 @@ public:
    ENUM_JSON_TYPE    JsonType(void)const { return (ENUM_JSON_TYPE)Type(); }
    virtual int       Total(void)const { return CArrayObj::Total(); }
    virtual string    Value(void)const { return ""; }
+   virtual  bool     Value(const string value) { return false; }
    virtual string    Key(void)const { return ""; }
    virtual CJsonBase* Key(const string key) { return NULL; }
    virtual bool      KeyExist(const string key)const { return false; }

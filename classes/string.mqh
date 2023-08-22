@@ -17,6 +17,7 @@ protected:
 public:
    virtual int       Type(void)const { return JSON_TYPE_STRING; }
    virtual string    Value(void)const { return m_string; }
+   virtual bool      Value(const string value) { m_string = value; return true; }
    virtual string    Stringfy(void)const { return StringFormat("\"%s\"",m_string); }
    virtual int       Parse(const string parse);
    static bool       RemoveStringAspos(string &text);

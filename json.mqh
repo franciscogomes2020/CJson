@@ -32,6 +32,7 @@ public:
    virtual int       Type(void)const { return CheckPointer(m_json) == POINTER_INVALID ? JSON_TYPE_UNDEFINED : m_json.Type(); }
    virtual int       Total(void)const { return m_json.Total(); }
    virtual string    Value(void)const { return m_json.Value(); }
+   virtual bool      Value(const string value) { return m_json.Value(value); }
    string            Key(void)const { return m_json.Key(); }
    virtual bool      KeyExist(const string key)const { return m_json.KeyExist(key); }
    virtual CJsonBase *ValuePointer(void) { return m_json.ValuePointer(); }
