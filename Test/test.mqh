@@ -8,7 +8,7 @@
 /*+------------------------------------------------------------------+
 //| these tests auto run if you use this include into your program   |
 //|+-----------------------------------------------------------------+
-#include <Json\test.mqh>
+#include <Json\Test\test.mqh>
 
 
 
