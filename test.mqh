@@ -6,10 +6,9 @@
 #property copyright "Copyright 2023, Francisco Gomes da Silva"
 #property link      "https://www.mql5.com/en/users/franciscogomes5"
 /*+------------------------------------------------------------------+
-//| how to run these tests:                                          |
+//| these tests auto run if you use this include into your program   |
 //|+-----------------------------------------------------------------+
 #include <Json\test.mqh>
-int runTestCJson = TestCJson();
 
 
 
@@ -150,4 +149,7 @@ int TestCJson(void)
 
    return 0;
   }
+#ifdef _DEBUG
+int autoRunTestCJson = TestCJson();
+#endif
 //+------------------------------------------------------------------+
