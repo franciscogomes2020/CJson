@@ -46,6 +46,15 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Stringfy(), "{}");
    ASSERT_EQUALS(json.Total(), 0);
 
+// any json can be a object
+// example convert json to string
+   ASSERT_EQUALS(json = "oneString",true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
+// example convert json to object
+   ASSERT_EQUALS(json["one key"] = "one value",true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(),"{\"one key\":\"one value\"}");
+
 // array with 1 object
    ASSERT_EQUALS((json="[{}]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);

@@ -26,7 +26,6 @@ public:
    CJson*            operator[](const string key) { return Key(key); }
    bool              operator==(ENUM_JSON_TYPE type)const { return JsonType() == type; }
    bool              operator!=(ENUM_JSON_TYPE type)const { return JsonType() != type; }
-   virtual CJsonBase* Key(const string key) { return m_json.Key(key); }
    int               Parse(const string parse);
    virtual string    Stringfy(void)const { return Type() == JSON_TYPE_UNDEFINED ? "" : m_json.Stringfy(); }
    virtual int       Type(void)const { return CheckPointer(m_json) == POINTER_INVALID ? JSON_TYPE_UNDEFINED : m_json.Type(); }
@@ -35,6 +34,7 @@ public:
    virtual bool      Value(const string value) { return m_json.Value(value); }
    string            Key(void)const { return m_json.Key(); }
    virtual bool      KeyExist(const string key)const { return m_json.KeyExist(key); }
+   virtual CJsonBase* Key(const string key);
    virtual CJsonBase *ValuePointer(void) { return m_json.ValuePointer(); }
 protected:
    virtual bool      SetJson(CJsonBase *json);
@@ -82,6 +82,15 @@ bool CJson::SetJson(CJsonBase *json)
       delete m_json;
    m_json = json;
    return true;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+CJsonBase *CJson::Key(const string key)
+  {
+   if(Type() != JSON_TYPE_OBJECT)
+      SetJson(new CJsonObject);
+   return m_json.Key(key);
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
