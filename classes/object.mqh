@@ -5,6 +5,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2023, Francisco Gomes da Silva"
 #property link      "https://www.mql5.com/en/users/franciscogomes5"
+#property strict
 
 #include <Arrays\ArrayString.mqh>
 #include "array.mqh"
