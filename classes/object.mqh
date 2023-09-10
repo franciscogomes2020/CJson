@@ -70,8 +70,8 @@ CJsonBase *CJsonObject::Key(const string key)
       return b;
      }
    b = GetCJsonNewPointer();
-   b.SetKeyName(key);
-   Add(b);
+   if(m_keys.Add(key))
+      Add(b);
    return b;
   }
 //+------------------------------------------------------------------+
