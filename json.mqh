@@ -28,7 +28,7 @@ public:
    bool              operator!=(ENUM_JSON_TYPE type)const { return JsonType() != type; }
    virtual CJsonBase* Key(const string key) { return m_json.Key(key); }
    int               Parse(const string parse);
-   string            Stringfy(void)const { return m_json.Stringfy(); }
+   virtual string    Stringfy(void)const { return Type() == JSON_TYPE_UNDEFINED ? "" : m_json.Stringfy(); }
    virtual int       Type(void)const { return CheckPointer(m_json) == POINTER_INVALID ? JSON_TYPE_UNDEFINED : m_json.Type(); }
    virtual int       Total(void)const { return m_json.Total(); }
    virtual string    Value(void)const { return m_json.Value(); }

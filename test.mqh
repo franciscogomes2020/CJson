@@ -24,6 +24,9 @@ int runTestCJson = TestCJson();
 int TestCJson(void)
   {
    CJson json;
+// json is not defined yet
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_UNDEFINED);
+   ASSERT_EQUALS(json.Stringfy(), "");
 
 // string
    ASSERT_EQUALS((json="name"), true);
