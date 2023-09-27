@@ -45,6 +45,16 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Stringfy(), "{}");
    ASSERT_EQUALS(json.Total(), 0);
 
+   ASSERT_EQUALS((json="{Name1:\"Willian\"}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"Name1\":\"Willian\"}");
+   ASSERT_EQUALS(json.Total(), 1);
+
+   ASSERT_EQUALS((json="{Name1:\"Willian\",\"Name2\":\"Rose\"}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"Name1\":\"Willian\",\"Name2\":\"Rose\"}");
+   ASSERT_EQUALS(json.Total(), 2);
+
 // any json can be a object
 // example convert json to string
    ASSERT_EQUALS(json = "oneString",true);
