@@ -79,6 +79,7 @@ CJsonBase *CJsonObject::Key(const string key)
 //+------------------------------------------------------------------+
 bool CJsonObject::ProcessChildren(const string parse, const int start, const int end, const string myString, const int myStart, const int myEnd)
   {
+   Clear();
    if(myString == "{}")
       return true;
    const string content = GetContent(parse,myStart+1,myEnd-1);
