@@ -27,6 +27,7 @@ public:
    static bool       GetKey(const string text, string &key, int &reads);
    static bool       GetValue(const string text, string &value, int &reads);
    static  string    NormalizeKey(string text);
+   void              Clear(void) { m_keys.Clear(); CJsonArray::Clear(); }
 protected:
    virtual ushort    CharToOpen(void)const { return '{'; }
    virtual ushort    CharToClose(void)const { return '}'; }
