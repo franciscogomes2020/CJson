@@ -26,6 +26,7 @@ public:
    virtual string    Key(void)const { return ""; }
    virtual CJsonBase* Key(const string key) { return NULL; }
    virtual bool      KeyExist(const string key)const { return false; }
+   virtual string    KeyName(const int i)const { return NULL; }
    virtual bool      SetKeyName(const string keyName) { return false; }
    virtual CJsonBase *ValuePointer(void) { return NULL; }
 protected:

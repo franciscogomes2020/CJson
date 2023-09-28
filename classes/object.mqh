@@ -21,6 +21,7 @@ public:
    virtual int       Type(void)const { return JSON_TYPE_OBJECT; }
    virtual string    Stringfy(const int i)const;
    virtual bool      KeyExist(const string key)const { return IndexOfKey(key) >= 0; }
+   virtual string    KeyName(const int i)const { return m_keys.At(i); }
    virtual int       IndexOfKey(const string key)const;
    virtual CJsonBase *Key(const string key);
    virtual bool      Add(const string key, const string value, int &reads);
