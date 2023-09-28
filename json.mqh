@@ -10,6 +10,7 @@
 
 #include "classes\array.mqh"
 #include "classes\object.mqh"
+#include "classes\int.mqh"
 #include "classes\undefined.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -31,6 +32,7 @@ public:
    virtual int       Type(void)const { return Json().Type(); }
    virtual int       Total(void)const { return Json().Total(); }
    virtual string    Value(void)const { return Json().Value(); }
+   virtual long      ValueToInt(void)const { return Json().ValueToInt(); }
    virtual bool      Value(const string value) { return Json().Value(value); }
    string            Key(void)const { return Json().Key(); }
    virtual bool      KeyExist(const string key)const { return Json().KeyExist(key); }
@@ -59,6 +61,8 @@ int CJson::Parse(const string parse)
    if(SetJson(new CJsonArray, parse, charReads))
       return charReads;
    if(SetJson(new CJsonObject, parse, charReads))
+      return charReads;
+   if(SetJson(new CJsonInt, parse, charReads))
       return charReads;
 // if rearchs here so classific as string
    delete m_json;

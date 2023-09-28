@@ -27,6 +27,13 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Type(), JSON_TYPE_UNDEFINED);
    ASSERT_EQUALS(json.Stringfy(), "");
 
+// int
+   ASSERT_EQUALS((json="1"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
 // string
    ASSERT_EQUALS((json="name"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
@@ -56,6 +63,7 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Total(), 2);
 
    ASSERT_EQUALS((json="{}"), true);
+   ASSERT_EQUALS(json["undefined key"].Type(),JSON_TYPE_UNDEFINED)
    ASSERT_EQUALS(json["undefined key"].Value(),"")
 
 // any json can be a object
