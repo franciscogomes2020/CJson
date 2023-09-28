@@ -55,6 +55,9 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Stringfy(), "{\"Name1\":\"Willian\",\"Name2\":\"Rose\"}");
    ASSERT_EQUALS(json.Total(), 2);
 
+   ASSERT_EQUALS((json="{}"), true);
+   ASSERT_EQUALS(json["undefined key"].Value(),"")
+
 // any json can be a object
 // example convert json to string
    ASSERT_EQUALS(json = "oneString",true);

@@ -17,5 +17,5 @@ public:
    virtual string    Stringfy(void)const { return ""; }
   };
 CJsonUndefined GlobalJsonUndefinedInstance;
-#define JSON_UNDEFINED_INSTANCE &GlobalJsonUndefinedInstance;
+#define JSON_UNDEFINED_INSTANCE (&GlobalJsonUndefinedInstance)
 //+------------------------------------------------------------------+
