@@ -55,6 +55,7 @@ int TestCJson(void)
    ASSERT_EQUALS((json="{Name1:\"Willian\"}"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json.KeyName(0),"Name1")
+   ASSERT_EQUALS(json.At(0).Value(),"Willian")
    ASSERT_EQUALS(json.Stringfy(), "{\"Name1\":\"Willian\"}");
    ASSERT_EQUALS(json.Total(), 1);
 
@@ -62,6 +63,8 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json.KeyName(0),"Name1")
    ASSERT_EQUALS(json.KeyName(1),"Name2")
+   ASSERT_EQUALS(json.At(0).Value(),"Willian")
+   ASSERT_EQUALS(json.At(1).Value(),"Rose")
    ASSERT_EQUALS(json.Stringfy(), "{\"Name1\":\"Willian\",\"Name2\":\"Rose\"}");
    ASSERT_EQUALS(json.Total(), 2);
 

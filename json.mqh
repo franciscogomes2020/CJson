@@ -27,6 +27,7 @@ public:
    CJson*            operator[](const string key) { return Key(key); }
    bool              operator==(ENUM_JSON_TYPE type)const { return JsonType() == type; }
    bool              operator!=(ENUM_JSON_TYPE type)const { return JsonType() != type; }
+   CJson*            At(const int i) { return Json().At(i); }
    int               Parse(const string parse);
    virtual string    Stringfy(void)const { return Json().Stringfy(); }
    virtual int       Type(void)const { return Json().Type(); }
