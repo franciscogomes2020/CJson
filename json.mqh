@@ -39,6 +39,7 @@ public:
    virtual bool      KeyExist(const string key)const { return Json().KeyExist(key); }
    virtual string    KeyName(const int i)const { return Json().KeyName(i); }
    virtual CJsonBase* Key(const string key);
+   virtual CJsonBase* Key(const int i) { return At(i); }
    virtual CJsonBase *ValuePointer(void) { return Json().ValuePointer(); }
 protected:
    virtual bool      SetJson(CJsonBase *json);

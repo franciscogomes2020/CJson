@@ -25,6 +25,7 @@ public:
    virtual long      ValueToInt(void)const { return NULL; }
    virtual string    Key(void)const { return ""; }
    virtual CJsonBase* Key(const string key) { return NULL; }
+   virtual CJsonBase* Key(const int i) { return this.At(i); }
    virtual bool      KeyExist(const string key)const { return false; }
    virtual string    KeyName(const int i)const { return NULL; }
    virtual bool      SetKeyName(const string keyName) { return false; }
