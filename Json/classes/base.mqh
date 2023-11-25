@@ -56,6 +56,7 @@ int CJsonBase::ProcessParse(const string parse, const int start, const int end)
    int i;
    ushort c;
    string myString = "";
+   int iChecked = -1;
    for(i=start; i<=end; i++)
      {
       c = StringGetCharacter(parse,i);
@@ -64,14 +65,17 @@ int CJsonBase::ProcessParse(const string parse, const int start, const int end)
       if(!IsMyChar(myString,c))
          break;
       else
+        {
+         iChecked = i;
          if(myStart == -1)
             myStart = i;
+        }
       myString+= CharToString((uchar)c);
      }
    if(!IsMyString(myString))
       return 0;
    const int count = i;
-   myEnd = count -1;
+   myEnd = iChecked;
    if(!ProcessChildren(parse,start,end,myString,myStart,myEnd))
       return 0;
    return count;
