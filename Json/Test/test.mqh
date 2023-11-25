@@ -75,6 +75,19 @@ int TestCJson(void)
    ASSERT_EQUALS(json["undefined key"].Type(),JSON_TYPE_UNDEFINED)
    ASSERT_EQUALS(json["undefined key"].Value(),"")
 
+   ASSERT_EQUALS((json="{\"buy\":{\"open\":{\"rule\":\"C=O\"}},\"sell\":{\"open\":{\"rule\":\"C!=O\"}}}"),true);
+   ASSERT_EQUALS(json.JsonType(),JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.KeyExist("buy"),true);
+   ASSERT_EQUALS(json["buy"].KeyExist("open"),true);
+   ASSERT_EQUALS(json["buy"]["open"].KeyExist("rule"),true);
+   ASSERT_EQUALS(json["buy"]["open"]["rule"].JsonType(),JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["buy"]["open"]["rule"].Value(),"C=O");
+
+   ASSERT_EQUALS(json["sell"].KeyExist("open"),true);
+   ASSERT_EQUALS(json["sell"]["open"].KeyExist("rule"),true);
+   ASSERT_EQUALS(json["sell"]["open"]["rule"].JsonType(),JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["sell"]["open"]["rule"].Value(),"C!=O");
+
 // any json can be a object
 // example convert json to string
    ASSERT_EQUALS(json = "oneString",true);
