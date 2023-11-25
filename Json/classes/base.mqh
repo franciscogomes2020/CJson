@@ -30,6 +30,8 @@ public:
    virtual string    KeyName(const int i)const { return NULL; }
    virtual bool      SetKeyName(const string keyName) { return false; }
    virtual CJsonBase *ValuePointer(void) { return NULL; }
+   static void       EscapeXml(string &text);
+   static void       DecodeXml(string &text);
 protected:
    static string     GetContent(const string parse, const int start, const int end);
    virtual int       ProcessParse(const string parse, const int start, const int end);
@@ -101,5 +103,21 @@ string CJsonBase::GetContent(const string parse,const int start,const int end)
       return "";
    const int total = end - start +1;
    return StringSubstr(parse,start,total);
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void CJsonBase::EscapeXml(string &text)
+  {
+   StringReplace(text,"\"","&quot;");
+   StringReplace(text,"\'","&apos;");
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void CJsonBase::DecodeXml(string &text)
+  {
+   StringReplace(text,"&quot;","\"");
+   StringReplace(text,"&apos;","\'");
   }
 //+------------------------------------------------------------------+

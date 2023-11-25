@@ -203,6 +203,12 @@ int TestCJson(void)
    ASSERT_EQUALS(json == JSON_TYPE_STRING,true);
    ASSERT_EQUALS(json.Value(),"{}");
 
+//scape and decode to normalize strings inside json
+   string text = "\" \'";
+   CJsonBase::EscapeXml(text);
+   ASSERT_EQUALS(text,"&quot; &apos;")
+   CJsonBase::DecodeXml(text);
+   ASSERT_EQUALS(text,"\" \'")
    return 0;
   }
 #ifdef _DEBUG
