@@ -15,6 +15,12 @@ enum ENUM_JSON_TYPE
    JSON_TYPE_STRING,
    JSON_TYPE_UNDEFINED,
   };
+
+#define ARRAY        JSON_TYPE_ARRAY
+#define OBJECT       JSON_TYPE_OBJECT
+#define INT          JSON_TYPE_INT
+#define STRING       JSON_TYPE_STRING
+#define UNDEFINED    JSON_TYPE_UNDEFINED
 //+------------------------------------------------------------------+
 //| this code is to create a instace of CJson from any place         |
 //+------------------------------------------------------------------+
