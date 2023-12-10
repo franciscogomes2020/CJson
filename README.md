@@ -14,9 +14,9 @@ I will show an example of how to download it to your project in a separate branc
 ```bash
 git remote add json https://github.com/franciscogomes2020/CJson.git
 git fetch json
-git checkout json
 git branch json json/json
-git merge json
+git merge json --allow-unrelated-histories
+
 ```
 Now you have this project tracked in the `json` branch inside your project.
 
