@@ -23,11 +23,13 @@ public:
                     ~CJson();
    bool              operator=(CJsonBase *json) { return SetJson(json); }
    bool              operator=(const string parse) { return (bool)Parse(parse); }
-   CJson*            operator[](const int i) { return Json().At(i); }
+   bool              operator=(const int value) { return (bool)Parse((string)value); }
+   bool              operator=(const double value) { return (bool)Parse((string)value); }
+   CJson*            operator[](const int i) { return At(i); }
    CJson*            operator[](const string key) { return Key(key); }
    bool              operator==(ENUM_JSON_TYPE type)const { return JsonType() == type; }
    bool              operator!=(ENUM_JSON_TYPE type)const { return JsonType() != type; }
-   CJson*            At(const int i) { return Json().At(i); }
+   CJson*            At(const int i);
    int               Parse(const string parse);
    virtual string    Stringfy(void)const { return Json().Stringfy(); }
    virtual int       Type(void)const { return Json().Type(); }
@@ -71,6 +73,28 @@ int CJson::Parse(const string parse)
    delete m_json;
    m_json = new CJsonString;
    return m_json.Parse(parse);
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+CJson *CJson::At(const int i)
+  {
+   CJsonBase *json = Json();
+   if(json.Type()==JSON_TYPE_ARRAY || json.Type()==JSON_TYPE_OBJECT)
+     {
+      CJsonArray *arr = json;
+      if(arr.Total() <= i)
+        {
+         arr.Resize(i+1);
+        }
+      if(!CheckPointer(arr.At(i)))
+        {
+         arr.Update(i,new CJson);
+        }
+      return dynamic_cast<CJson *>(arr.At(i));
+     }
+   SetJson(new CJsonArray);
+   return At(i);
   }
 //+------------------------------------------------------------------+
 //|                                                                  |

@@ -1,14 +1,14 @@
 //+------------------------------------------------------------------+
 //|                                                         test.mqh |
-//|                         Copyright 2023, Francisco Gomes da Silva |
+//|                         Copyright 2024, Francisco Gomes da Silva |
 //|                    https://www.mql5.com/en/users/franciscogomes5 |
 //+------------------------------------------------------------------+
-#property copyright "Copyright 2023, Francisco Gomes da Silva"
+#property copyright "Copyright 2024, Francisco Gomes da Silva"
 #property link      "https://www.mql5.com/en/users/franciscogomes5"
 /*+------------------------------------------------------------------+
 //| these tests auto run if you use this include into your program   |
 //|+-----------------------------------------------------------------+
-#include <Json\Test\test.mqh>
+#include <CJson\Json\Test\test.mqh>
 
 
 
@@ -209,7 +209,20 @@ int TestCJson(void)
    ASSERT_EQUALS(text,"&quot; &apos;")
    CJsonBase::DecodeXml(text);
    ASSERT_EQUALS(text,"\" \'")
-   return 0;
+
+// it was not a array but now it is
+   ASSERT_EQUALS(json[1]="now I am a array",true);
+   ASSERT_EQUALS(json==JSON_TYPE_ARRAY,true);
+   ASSERT_EQUALS(json[1]==JSON_TYPE_STRING,true);
+   ASSERT_EQUALS(json[0]==JSON_TYPE_UNDEFINED,true);
+   ASSERT_EQUALS(json[0]=1,true);
+   ASSERT_EQUALS(json[0]==JSON_TYPE_INT,true);
+   ASSERT_EQUALS(json[1]==JSON_TYPE_STRING,true);
+   ASSERT_EQUALS(json.Total(),2);
+   ASSERT_EQUALS(json[2]==JSON_TYPE_UNDEFINED,true);
+   ASSERT_EQUALS(json.Total(),3);
+
+   return 1;
   }
 #ifdef _DEBUG
 int autoRunTestCJson = TestCJson();

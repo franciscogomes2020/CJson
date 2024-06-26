@@ -16,6 +16,7 @@ public:
    virtual int       Type(void)const { return JSON_TYPE_ARRAY; }
    virtual string    Stringfy(void)const;
    virtual string    Stringfy(const int i)const;
+   virtual bool      Resize(const int size) { if(CArrayObj::Reserve(size)) { m_data_total = size; return true; } return false; }
 protected:
    virtual ushort    CharToOpen(void)const { return '['; }
    virtual ushort    CharToClose(void)const { return ']'; }

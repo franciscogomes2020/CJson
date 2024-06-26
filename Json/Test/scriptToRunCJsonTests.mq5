@@ -19,7 +19,7 @@ if it does not stop it is because your test has passed
 /*+-----------------------------------------------------------------*/
 //| include to run auto test for CJson                               |
 //|+----------------------------------------------------------------*/
-#include "test.mqh"
+#include <CJson\Json\Test\test.mqh>
 //++------------------------------------------------------------------+
 //| Function needed to any script                                    |
 //+------------------------------------------------------------------+
