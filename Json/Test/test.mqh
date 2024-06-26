@@ -222,6 +222,16 @@ int TestCJson(void)
    ASSERT_EQUALS(json[2]==JSON_TYPE_UNDEFINED,true);
    ASSERT_EQUALS(json.Total(),3);
 
+// you can acess an index and a key directly
+   ASSERT_EQUALS(json="any value",true);
+   ASSERT_EQUALS(json[1]["key1"]="value1",true);
+   ASSERT_EQUALS(json[1]["key2"]="value2",true);
+   ASSERT_EQUALS(json[2]["key1"]="value3",true);
+   ASSERT_EQUALS(json[2]["key2"]="value4",true);
+   ASSERT_EQUALS(json.Total(),3);
+   ASSERT_EQUALS(json[1].Total(),2);
+   ASSERT_EQUALS(json[2].Total(),2);
+   ASSERT_EQUALS(json.Stringfy(),"[null,{\"key1\":\"value1\",\"key2\":\"value2\"},{\"key1\":\"value3\",\"key2\":\"value4\"}]");
    return 1;
   }
 #ifdef _DEBUG

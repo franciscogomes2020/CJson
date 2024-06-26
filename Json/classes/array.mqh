@@ -51,6 +51,8 @@ string CJsonArray::Stringfy(void)const
 string CJsonArray::Stringfy(const int i)const
   {
    CJsonBase *child = At(i);
+   if(!CheckPointer(child))
+      return "null";
    return child.Stringfy();
   }
 //+------------------------------------------------------------------+
