@@ -232,6 +232,16 @@ int TestCJson(void)
    ASSERT_EQUALS(json[1].Total(),2);
    ASSERT_EQUALS(json[2].Total(),2);
    ASSERT_EQUALS(json.Stringfy(),"[null,{\"key1\":\"value1\",\"key2\":\"value2\"},{\"key1\":\"value3\",\"key2\":\"value4\"}]");
+
+// string space ' '
+   ASSERT_EQUALS(json=" ",true)
+   ASSERT_EQUALS(json.JsonType(),JSON_TYPE_STRING)
+   ASSERT_EQUALS(json.Value()," ")
+
+// string breakline \n
+   ASSERT_EQUALS(json="\n",true)
+   ASSERT_EQUALS(json.JsonType(),JSON_TYPE_STRING)
+   ASSERT_EQUALS(json.Value(),"\n")
    return 1;
   }
 #ifdef _DEBUG

@@ -28,8 +28,6 @@ public:
 int CJsonString::Parse(const string parse)
   {
    string text = parse;
-   StringTrimLeft(text);
-   StringTrimRight(text);
    RemoveStringAspos(text);
    m_string = text;
    return StringLen(parse);
