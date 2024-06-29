@@ -39,6 +39,8 @@ bool CJsonInt::IsMyChar(string base, ushort c)
 //+------------------------------------------------------------------+
 bool CJsonInt::IsMyString(const string text)
   {
+   if(text == "")
+      return false;
    const int total = StringLen(text);
    for(int i=0; i<total; i++)
       if(!IsMyChar("",StringGetCharacter(text,i)))
