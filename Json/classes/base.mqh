@@ -23,6 +23,7 @@ public:
    virtual  bool     Value(const string value) { return false; }
    virtual void      Value(const int value) { Value(IntegerToString(value)); }
    virtual long      ValueToInt(void)const { return NULL; }
+   virtual double    ValueToDouble(void)const { return NULL; }
    virtual string    Key(void)const { return ""; }
    virtual CJsonBase* Key(const string key) { return NULL; }
    virtual CJsonBase* Key(const int i) { return this.At(i); }

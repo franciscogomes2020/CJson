@@ -12,6 +12,7 @@ enum ENUM_JSON_TYPE
    JSON_TYPE_OBJECT,
    JSON_TYPE_KEY_VALUE,
    JSON_TYPE_INT,
+   JSON_TYPE_DOUBLE,
    JSON_TYPE_STRING,
    JSON_TYPE_UNDEFINED,
   };
@@ -19,6 +20,7 @@ enum ENUM_JSON_TYPE
 #define ARRAY        JSON_TYPE_ARRAY
 #define OBJECT       JSON_TYPE_OBJECT
 #define INT          JSON_TYPE_INT
+#define DOUBLE       JSON_TYPE_DOUBLE
 #define STRING       JSON_TYPE_STRING
 #define UNDEFINED    JSON_TYPE_UNDEFINED
 //+------------------------------------------------------------------+

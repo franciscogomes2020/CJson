@@ -34,11 +34,27 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Value(), "1");
    ASSERT_EQUALS(json.ValueToInt(), 1);
 
+// double
+   ASSERT_EQUALS((json="1.123"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_DOUBLE);
+   ASSERT_EQUALS(json.Stringfy(), "1.123");
+   ASSERT_EQUALS(json.Value(), "1.123");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+   ASSERT_EQUALS(json.ValueToDouble(), 1.123);
+
 // string
    ASSERT_EQUALS((json="name"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json.Stringfy(), "\"name\"");
    ASSERT_EQUALS(json.Value(), "name");
+
+// double as string
+   ASSERT_EQUALS((json="\"1.123\""), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
+   ASSERT_EQUALS((json="'1.123'"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json.Stringfy(), "\"1.123\"");
+   ASSERT_EQUALS(json.Value(), "1.123");
 
 // array
    ASSERT_EQUALS((json="[]"), true);
@@ -183,12 +199,12 @@ int TestCJson(void)
 
    ASSERT_EQUALS(json = "{sell:{open:'1.67'}}",true);
    ASSERT_EQUALS(json==JSON_TYPE_OBJECT,true);
-   ASSERT_EQUALS(json.Stringfy(),"{\"sell\":{\"open\":\"1.67\"}}");
+   ASSERT_EQUALS(json.Stringfy(),"{\"sell\":{\"open\":1.67}}");
    ASSERT_EQUALS(json["open"].JsonType(),JSON_TYPE_UNDEFINED);
    ASSERT_EQUALS(json["sell"]==JSON_TYPE_OBJECT,true);
-   ASSERT_EQUALS(json["sell"].Stringfy(),"{\"open\":\"1.67\"}");
-   ASSERT_EQUALS(json["sell"]["open"]==JSON_TYPE_STRING,true);
-   ASSERT_EQUALS(json["sell"]["open"].Stringfy(),"\"1.67\"");
+   ASSERT_EQUALS(json["sell"].Stringfy(),"{\"open\":1.67}");
+   ASSERT_EQUALS(json["sell"]["open"]==JSON_TYPE_DOUBLE,true);
+   ASSERT_EQUALS(json["sell"]["open"].Stringfy(),"1.67");
 
 // operators
    ASSERT_EQUALS(json = new CJson,true);
@@ -296,6 +312,7 @@ int TestCJson(void)
    ASSERT_EQUALS(json["positions"][0]["type"].Value(),"POSITION_TYPE_BUY")
    ASSERT_EQUALS(json["positions"][0]["lot"].Value(),"1")
    ASSERT_EQUALS(json["positions"][0]["price"].Value(),"1.03642")
+   ASSERT_EQUALS(json["positions"][0]["price"].JsonType(),JSON_TYPE_DOUBLE)
 
    return 1;
   }

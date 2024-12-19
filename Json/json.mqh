@@ -10,6 +10,7 @@
 
 #include "classes\array.mqh"
 #include "classes\object.mqh"
+#include "classes\double.mqh"
 #include "classes\int.mqh"
 #include "classes\undefined.mqh"
 //+------------------------------------------------------------------+
@@ -36,6 +37,7 @@ public:
    virtual int       Total(void)const { return Json().Total(); }
    virtual string    Value(void)const { return Json().Value(); }
    virtual long      ValueToInt(void)const { return Json().ValueToInt(); }
+   virtual double    ValueToDouble(void)const { return Json().ValueToDouble(); }
    virtual bool      Value(const string value) { return Json().Value(value); }
    string            Key(void)const { return Json().Key(); }
    virtual bool      KeyExist(const string key)const { return Json().KeyExist(key); }
@@ -66,6 +68,8 @@ int CJson::Parse(const string parse)
    if(SetJson(new CJsonArray, parse, charReads))
       return charReads;
    if(SetJson(new CJsonObject, parse, charReads))
+      return charReads;
+   if(SetJson(new CJsonDouble, parse, charReads))
       return charReads;
    if(SetJson(new CJsonInt, parse, charReads))
       return charReads;
