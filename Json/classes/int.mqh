@@ -54,12 +54,14 @@ bool CJsonInt::ProcessChildren(const string parse,const int start,const int end,
   {
 //check if was a double
    ushort c;
-   const int total = StringLen(parse);
-   for(int i=myEnd; i<total; i++)
+   const int parseTotal = StringLen(parse);
+   const int myStringTotal = StringLen(myString);
+   if(myStringTotal > parseTotal)
+      return false;
+   c = StringGetCharacter(parse,myStringTotal);
+   if(c == '.')
      {
-      c = StringGetCharacter(parse,i);
-      if(c == '.')
-         return false;
+      return false;
      }
    m_int = StringToInteger(myString);
    return true;

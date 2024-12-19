@@ -242,6 +242,61 @@ int TestCJson(void)
    ASSERT_EQUALS(json="\n",true)
    ASSERT_EQUALS(json.JsonType(),JSON_TYPE_STRING)
    ASSERT_EQUALS(json.Value(),"\n")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"magic\":239898,\"ticket\":1376269651}]}",true)
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\"}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),1)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),2)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898,\"ticket\":1376269651}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),3)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898,\"ticket\":1376269651,\"type\":\"POSITION_TYPE_BUY\"}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),4)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+   ASSERT_EQUALS(json["positions"][0]["type"].Value(),"POSITION_TYPE_BUY")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898,\"ticket\":1376269651,\"type\":\"POSITION_TYPE_BUY\",\"lot\":1}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),5)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+   ASSERT_EQUALS(json["positions"][0]["type"].Value(),"POSITION_TYPE_BUY")
+   ASSERT_EQUALS(json["positions"][0]["lot"].Value(),"1")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898,\"ticket\":1376269651,\"type\":\"POSITION_TYPE_BUY\",\"lot\":1,\"price\":\"103642\"}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),6)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].JsonType(),JSON_TYPE_INT)
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+   ASSERT_EQUALS(json["positions"][0]["type"].Value(),"POSITION_TYPE_BUY")
+   ASSERT_EQUALS(json["positions"][0]["lot"].Value(),"1")
+   ASSERT_EQUALS(json["positions"][0]["price"].Value(),"103642")
+
+   ASSERT_EQUALS(json="{\"positions\":[{\"symbol\":\"EURUSD\",\"magic\":239898,\"ticket\":1376269651,\"type\":\"POSITION_TYPE_BUY\",\"lot\":1,\"price\":\"1.03642\"}]}",true)
+   ASSERT_EQUALS(json["positions"][0].Total(),6)
+   ASSERT_EQUALS(json["positions"][0]["symbol"].Value(),"EURUSD")
+   ASSERT_EQUALS(json["positions"][0]["magic"].JsonType(),JSON_TYPE_INT)
+   ASSERT_EQUALS(json["positions"][0]["magic"].Value(),"239898")
+   ASSERT_EQUALS(json["positions"][0]["ticket"].Value(),"1376269651")
+   ASSERT_EQUALS(json["positions"][0]["type"].Value(),"POSITION_TYPE_BUY")
+   ASSERT_EQUALS(json["positions"][0]["lot"].Value(),"1")
+   ASSERT_EQUALS(json["positions"][0]["price"].Value(),"1.03642")
+
    return 1;
   }
 #ifdef _DEBUG
