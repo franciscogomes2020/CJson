@@ -25,6 +25,7 @@ public:
    bool              operator=(CJsonBase *json) { return SetJson(json); }
    bool              operator=(const string parse) { return (bool)Parse(parse); }
    bool              operator=(const int value) { return (bool)Parse((string)value); }
+   bool              operator=(const long value) { return (bool)Parse((string)value); }
    bool              operator=(const double value) { return (bool)Parse((string)value); }
    CJson*            operator[](const int i) { return At(i); }
    CJson*            operator[](const string key) { return Key(key); }
