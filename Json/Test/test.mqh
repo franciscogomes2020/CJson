@@ -48,6 +48,13 @@ int TestCJson(void)
    ASSERT_EQUALS(json.ValueToInt(), 1);
    ASSERT_EQUALS(json.ValueToDouble(), 1.123);
 
+   ASSERT_EQUALS((json="-1.123"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_DOUBLE);
+   ASSERT_EQUALS(json.Stringfy(), "-1.123");
+   ASSERT_EQUALS(json.Value(), "-1.123");
+   ASSERT_EQUALS(json.ValueToInt(), -1);
+   ASSERT_EQUALS(json.ValueToDouble(), -1.123);
+
 // string
    ASSERT_EQUALS((json="name"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);

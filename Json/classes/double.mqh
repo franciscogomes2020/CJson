@@ -33,6 +33,9 @@ bool CJsonDouble::IsMyChar(string base, ushort c)
   {
    switch(c)
      {
+      case '-':
+         if(base != "")
+            return false;
       case '.':
          if(0 <= StringFind(base,"."))
             return false; // return false because is there a '.' on this base already
