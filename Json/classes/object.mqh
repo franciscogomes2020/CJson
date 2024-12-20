@@ -128,7 +128,7 @@ bool CJsonObject::Add(const string key, const string value, int &valueReaded)
   {
    CJsonBase *json = GetCJsonNewPointer();
    valueReaded = json.Parse(value);
-   if(valueReaded == 0)
+   if(valueReaded == 0 && json.JsonType() != JSON_TYPE_STRING)
      {
       delete json;
       return false;
