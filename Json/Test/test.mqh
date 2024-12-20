@@ -34,6 +34,12 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Value(), "1");
    ASSERT_EQUALS(json.ValueToInt(), 1);
 
+// long
+   ASSERT_EQUALS(json="3167042642",true)
+   ASSERT_EQUALS(json.JsonType(),JSON_TYPE_INT)
+   ASSERT_EQUALS(json="-3167042642",true)
+   ASSERT_EQUALS(json.JsonType(),JSON_TYPE_INT)
+
 // double
    ASSERT_EQUALS((json="1.123"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_DOUBLE);

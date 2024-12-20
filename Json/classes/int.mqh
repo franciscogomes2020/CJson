@@ -31,6 +31,8 @@ protected:
 //+------------------------------------------------------------------+
 bool CJsonInt::IsMyChar(string base, ushort c)
   {
+   if(c == '-' && base == "")
+      return true;
    if(c < '0' || c > '9')
       return false;
    return true;
