@@ -91,6 +91,9 @@ bool CJsonBase::IsCharToIgnore(const ushort c)
    switch(c)
      {
       case ' ':
+      case '\t':
+      case '\r':
+      case '\n':
          return true;
      }
    return false;

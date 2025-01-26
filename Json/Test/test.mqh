@@ -23,6 +23,7 @@
 int TestCJson(void)
   {
    CJson json;
+   string text;
 // json is not defined yet
    ASSERT_EQUALS(json.Type(), JSON_TYPE_UNDEFINED);
    ASSERT_EQUALS(json.Stringfy(), "");
@@ -155,6 +156,28 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0].Stringfy(), "{}");
    ASSERT_EQUALS(json[0].Total(), 0);
 
+   text =
+      ""
+      + "[\r\n"
+      + "    {\r\n"
+      + "      \"index\": 0,\r\n"
+      + "      \"message\": {\r\n"
+      + "        \"role\": \"assistant\",\r\n"
+      + "        \"content\": \"The image features a scenic landscape with a wooden pathway leading through a lush green area. The path is surrounded by tall grasses and various types of vegetation. In the background, there are trees and a blue sky with some clouds, indicating a clear day. The overall scene conveys a sense of tranquility and natural beauty.\",\r\n"
+      + "        \"refusal\": null\r\n"
+      + "      },\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "      \"finish_reason\": \"stop\"\r\n"
+      + "    }\r\n"
+      + "  ]\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json[0].JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0]["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json[0]["message"].JsonType(), JSON_TYPE_OBJECT);
+
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
@@ -240,7 +263,7 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Value(),"{}");
 
 //scape and decode to normalize strings inside json
-   string text = "\" \'";
+   text = "\" \'";
    CJsonBase::EscapeXml(text);
    ASSERT_EQUALS(text,"&quot; &apos;")
    CJsonBase::DecodeXml(text);
