@@ -13,6 +13,7 @@
 #include "classes\double.mqh"
 #include "classes\int.mqh"
 #include "classes\undefined.mqh"
+#include "classes\null.mqh"
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -73,6 +74,8 @@ int CJson::Parse(const string parse)
    if(SetJson(new CJsonDouble, parse, charReads))
       return charReads;
    if(SetJson(new CJsonInt, parse, charReads))
+      return charReads;
+   if(SetJson(new CJsonNull, parse, charReads))
       return charReads;
 // if rearchs here so classific as string
    delete m_json;

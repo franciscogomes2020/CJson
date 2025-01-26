@@ -177,6 +177,12 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0].JsonType(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json[0]["index"].JsonType(), JSON_TYPE_INT);
    ASSERT_EQUALS(json[0]["message"].JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json[0]["logprobs"].JsonType(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json[0]["finish_reason"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json[0].Total(), 4);
+   ASSERT_EQUALS(json[0]["message"]["role"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json[0]["message"]["content"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json[0]["message"]["refusal"].JsonType(), JSON_TYPE_NULL);
 
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
