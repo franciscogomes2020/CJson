@@ -116,7 +116,7 @@ string CJsonBase::Trim(const string text)
   {
    const int total = StringLen(text);
    ushort c;
-   int s = -1;
+   int s = 0;
    for(int i=0; i < total; i++)
      {
       c = StringGetCharacter(text,i);
@@ -131,7 +131,7 @@ string CJsonBase::Trim(const string text)
       s = i;
       break;
      }
-   int e = -1;
+   int e = total-1;
    for(int i=total-1; i>=0; i--)
      {
       c = StringGetCharacter(text,i);
@@ -146,7 +146,7 @@ string CJsonBase::Trim(const string text)
       e = i;
       break;
      }
-   return StringSubstr(text,s,e-s);
+   return StringSubstr(text,s,e-s+1);
   }
 //+------------------------------------------------------------------+
 //|                                                                  |

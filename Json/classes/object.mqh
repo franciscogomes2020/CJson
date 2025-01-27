@@ -86,6 +86,8 @@ bool CJsonObject::ProcessChildren(const string parse, const int start, const int
       return true;
    const string content = GetContent(parse,myStart+1,myEnd-1);
 
+   string tempValue;
+   int tempLenght;
    string rightText;
    string key, value;
    int valueReaded;
@@ -104,6 +106,17 @@ bool CJsonObject::ProcessChildren(const string parse, const int start, const int
 
       i += reads;
       rightText = StringSubstr(content,i,total-1);
+
+      //remove last coma
+      tempValue = Trim(rightText);
+      if(tempValue == "")
+        {
+         tempValue = Trim(value);
+         tempLenght = StringLen(tempValue);
+         const ushort c = StringGetCharacter(tempValue,tempLenght-1);
+         if(c == ',')
+            value = StringSubstr(tempValue,0,tempLenght-1);
+        }
 
       if(!Add(key,value,valueReaded))
          return false;

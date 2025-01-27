@@ -209,6 +209,19 @@ int TestCJson(void)
    text =
       ""
       +"{\r\n"
+      +"  \"choices\": [\r\n"
+      +"    {\r\n"
+      +"    }\r\n"
+      +"  ],\r\n"
+      +"}\r\n";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["choices"].JsonType(),ARRAY);
+   ASSERT_EQUALS(json["choices"][0].JsonType(),OBJECT);
+
+   text =
+      ""
+      +"{\r\n"
       +"  \"id\": \"chatcmpl-Au0fgUlQJUeYsNRdovn5inP60GPIC\",\r\n"
       +"  \"object\": \"chat.completion\",\r\n"
       +"  \"created\": 1737912312,\r\n"
@@ -249,7 +262,7 @@ int TestCJson(void)
    ASSERT_EQUALS(json["choices"][0].JsonType(),OBJECT);
    ASSERT_EQUALS(json["choices"][0]["message"].JsonType(),OBJECT);
    ASSERT_EQUALS(json["choices"][0]["message"]["content"].JsonType(),STRING);
-   //ASSERT_EQUALS(json["choices"][0]["message"]["content"].Value(), "Ação: Comprar; Preço De Entrada: 1.4900; Stop: 1.4800; Take: 1.5100; Motivo: A recente recuperação do preço acima da média móvel, juntamente com o RSI em tendência de alta, sugere um impulso positivo.\",\r\n");
+   ASSERT_EQUALS(json["choices"][0]["message"]["content"].Value(), "Ação: Comprar; Preço De Entrada: 1.4900; Stop: 1.4800; Take: 1.5100; Motivo: A recente recuperação do preço acima da média móvel, juntamente com o RSI em tendência de alta, sugere um impulso positivo.");
 
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
