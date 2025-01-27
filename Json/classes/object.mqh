@@ -165,14 +165,23 @@ bool CJsonObject::GetValue(const string text, string &value, int &reads)
    for(int i=0; i<total; i++)
      {
       c = StringGetCharacter(text,i);
-      if(c == ' ')
-         continue;
+      switch(c)
+        {
+         case ' ':
+            continue;
+         case '\r':
+            continue;
+         case '\n':
+            continue;
+         case '\t':
+            continue;
+        }
       start = i;
       break;
      }
 // set end
    int end = 0;
-   if(c == '\'' || c == '"')
+   if(c == '\'' || c == '"') //this value is a string find the end....
      {
       const ushort firstChar = c;
       for(int i=start+1; i<total; i++)
@@ -184,7 +193,7 @@ bool CJsonObject::GetValue(const string text, string &value, int &reads)
          break;
         }
       // remove aspos
-      value = StringSubstr(text,start+1,end-1);
+      value = StringSubstr(text,start+1,end-start-1);
       reads = end+1;
       return true;
      }

@@ -183,6 +183,7 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0]["message"]["role"].JsonType(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json[0]["message"]["content"].JsonType(), JSON_TYPE_STRING);
    ASSERT_EQUALS(json[0]["message"]["refusal"].JsonType(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json[0]["message"]["content"].Value(), "The image features a scenic landscape with a wooden pathway leading through a lush green area. The path is surrounded by tall grasses and various types of vegetation. In the background, there are trees and a blue sky with some clouds, indicating a clear day. The overall scene conveys a sense of tranquility and natural beauty.");
 
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
