@@ -184,13 +184,16 @@ bool CJsonObject::GetValue(const string text, string &value, int &reads)
    if(c == '\'' || c == '"') //this value is a string find the end....
      {
       const ushort firstChar = c;
+      ushort last = c;
       for(int i=start+1; i<total; i++)
         {
          c = StringGetCharacter(text,i);
-         if(c != firstChar)
-            continue;
-         end = i;
-         break;
+         if(c == firstChar && last != '\\')
+           {
+            end = i;
+            break;
+           }
+         last = c;
         }
       // remove aspos
       value = StringSubstr(text,start+1,end-start-1);
