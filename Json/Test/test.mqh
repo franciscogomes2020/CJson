@@ -193,6 +193,64 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0]["message"]["refusal"].JsonType(), JSON_TYPE_NULL);
    ASSERT_EQUALS(json[0]["message"]["content"].Value(), "The image features a scenic landscape with a wooden pathway leading through a lush green area. The path is surrounded by tall grasses and various types of vegetation. In the background, there are trees and a blue sky with some clouds, indicating a clear day. The overall scene conveys a sense of tranquility and natural beauty.");
 
+   text =
+      ""
+      +"{\r\n"
+      +"  \"choices\": [\r\n"
+      +"    {\r\n"
+      +"    }\r\n"
+      +"  ]\r\n"
+      +"}\r\n";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["choices"].JsonType(),ARRAY);
+   ASSERT_EQUALS(json["choices"][0].JsonType(),OBJECT);
+
+   text =
+      ""
+      +"{\r\n"
+      +"  \"id\": \"chatcmpl-Au0fgUlQJUeYsNRdovn5inP60GPIC\",\r\n"
+      +"  \"object\": \"chat.completion\",\r\n"
+      +"  \"created\": 1737912312,\r\n"
+      +"  \"model\": \"gpt-4o-mini-2024-07-18\",\r\n"
+      +"  \"choices\": [\r\n"
+      +"    {\r\n"
+      +"      \"index\": 0,\r\n"
+      +"      \"message\": {\r\n"
+      +"        \"role\": \"assistant\",\r\n"
+      +"        \"content\": \"Ação: Comprar; Preço De Entrada: 1.4900; Stop: 1.4800; Take: 1.5100; Motivo: A recente recuperação do preço acima da média móvel, juntamente com o RSI em tendência de alta, sugere um impulso positivo.\",\r\n"
+      +"        \"refusal\": null\r\n"
+      +"      },\r\n"
+      +"      \"logprobs\": null,\r\n"
+      +"      \"finish_reason\": \"stop\"\r\n"
+      +"    }\r\n"
+      +"  ],\r\n"
+      +"  \"usage\": {\r\n"
+      +"    \"prompt_tokens\": 391,\r\n"
+      +"    \"completion_tokens\": 61,\r\n"
+      +"    \"total_tokens\": 452,\r\n"
+      +"    \"prompt_tokens_details\": {\r\n"
+      +"      \"cached_tokens\": 0,\r\n"
+      +"      \"audio_tokens\": 0\r\n"
+      +"    },\r\n"
+      +"    \"completion_tokens_details\": {\r\n"
+      +"      \"reasoning_tokens\": 0,\r\n"
+      +"      \"audio_tokens\": 0,\r\n"
+      +"      \"accepted_prediction_tokens\": 0,\r\n"
+      +"      \"rejected_prediction_tokens\": 0\r\n"
+      +"    }\r\n"
+      +"  },\r\n"
+      +"  \"service_tier\": \"default\",\r\n"
+      +"  \"system_fingerprint\": \"fp_bd83329f63\"\r\n"
+      +"}\r\n";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["choices"].JsonType(),ARRAY);
+   ASSERT_EQUALS(json["choices"][0].JsonType(),OBJECT);
+   ASSERT_EQUALS(json["choices"][0]["message"].JsonType(),OBJECT);
+   ASSERT_EQUALS(json["choices"][0]["message"]["content"].JsonType(),STRING);
+   //ASSERT_EQUALS(json["choices"][0]["message"]["content"].Value(), "Ação: Comprar; Preço De Entrada: 1.4900; Stop: 1.4800; Take: 1.5100; Motivo: A recente recuperação do preço acima da média móvel, juntamente com o RSI em tendência de alta, sugere um impulso positivo.\",\r\n");
+
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);

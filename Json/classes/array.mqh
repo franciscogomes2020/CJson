@@ -118,7 +118,9 @@ bool CJsonArray::ProcessChildren(const string parse,const int start,const int en
       return true;
 // get normal my content without spaces
    total = end-start+1;
-   string content = StringSubstr(parse,start+1,total-2);
+   string content = StringSubstr(parse,start,total);
+   content = Trim(content);
+   content = StringSubstr(content,start+1,total-2);
    if(content == "")
       return true;
 // redefine total

@@ -33,6 +33,7 @@ public:
    virtual CJsonBase *ValuePointer(void) { return NULL; }
    static void       EscapeXml(string &text);
    static void       DecodeXml(string &text);
+   static string     Trim(const string text);
 protected:
    static string     GetContent(const string parse, const int start, const int end);
    virtual int       ProcessParse(const string parse, const int start, const int end);
@@ -107,6 +108,45 @@ string CJsonBase::GetContent(const string parse,const int start,const int end)
       return "";
    const int total = end - start +1;
    return StringSubstr(parse,start,total);
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+string CJsonBase::Trim(const string text)
+  {
+   const int total = StringLen(text);
+   ushort c;
+   int s = -1;
+   for(int i=0; i < total; i++)
+     {
+      c = StringGetCharacter(text,i);
+      switch(c)
+        {
+         case ' ':
+         case '\t':
+         case '\r':
+         case '\n':
+            continue;
+        }
+      s = i;
+      break;
+     }
+   int e = -1;
+   for(int i=total-1; i>=0; i--)
+     {
+      c = StringGetCharacter(text,i);
+      switch(c)
+        {
+         case ' ':
+         case '\t':
+         case '\r':
+         case '\n':
+            continue;
+        }
+      e = i;
+      break;
+     }
+   return StringSubstr(text,s,e-s);
   }
 //+------------------------------------------------------------------+
 //|                                                                  |
