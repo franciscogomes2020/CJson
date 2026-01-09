@@ -25,6 +25,7 @@ protected:
    virtual bool      IsMyChar(const string processed, const ushort c);
    virtual bool      IsMyString(const string text);
    virtual bool      ProcessChildren(const string parse, const int start, const int end, const string myString, const int myStart, const int myEnd);
+   static  bool      IsIntegerSeparator(const ushort c);
   };
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -59,14 +60,37 @@ bool CJsonInt::ProcessChildren(const string parse,const int start,const int end,
    ushort c;
    const int parseTotal = StringLen(parse);
    const int myStringTotal = StringLen(myString);
+   const int myNext = myEnd + 1;
    if(myStringTotal > parseTotal)
       return false;
-   c = StringGetCharacter(parse,myStringTotal);
+   c = StringGetCharacter(parse,myNext);
    if(c == '.')
      {
       return false;
      }
+   if(!IsIntegerSeparator(c))
+     {
+      return false;
+     }
+
    m_int = StringToInteger(myString);
    return true;
+  }
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool CJsonInt::IsIntegerSeparator(const ushort c)
+  {
+   switch(c)
+     {
+      case ' ':
+      case '\t':
+      case '\n':
+      case '\r':
+      case ',':
+      case 0:
+         return true;
+     }
+   return false;
   }
 //+------------------------------------------------------------------+

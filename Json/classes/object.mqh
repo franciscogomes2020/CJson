@@ -73,7 +73,7 @@ CJsonBase *CJsonObject::Key(const string key)
      }
    b = GetCJsonNewPointer();
    if(m_keys.Add(key))
-      Add(b);
+      CArrayObj::Add(b);
    return b;
   }
 //+------------------------------------------------------------------+
@@ -114,8 +114,6 @@ bool CJsonObject::ProcessChildren(const string parse, const int start, const int
          tempValue = Trim(value);
          tempLenght = StringLen(tempValue);
          const ushort c = StringGetCharacter(tempValue,tempLenght-1);
-         if(c == ',')
-            value = StringSubstr(tempValue,0,tempLenght-1);
         }
 
       if(!Add(key,value,valueReaded))
@@ -127,6 +125,9 @@ bool CJsonObject::ProcessChildren(const string parse, const int start, const int
       StringTrimLeft(rightText);
       StringTrimRight(rightText);
       if(rightText == "")
+         return true;
+
+      if(rightText == ",")
          return true;
 
       if(StringGetCharacter(rightText,0) != ',')
@@ -146,7 +147,7 @@ bool CJsonObject::Add(const string key, const string value, int &valueReaded)
       delete json;
       return false;
      }
-   Add(json);
+   CArrayObj::Add(json);
    m_keys.Add(key);
    return true;
   }

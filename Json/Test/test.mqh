@@ -35,6 +35,48 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Value(), "1");
    ASSERT_EQUALS(json.ValueToInt(), 1);
 
+   ASSERT_EQUALS((json="1,"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
+   ASSERT_EQUALS((json="1 "), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
+   ASSERT_EQUALS((json="1\n"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
+   ASSERT_EQUALS((json="1\r"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
+   ASSERT_EQUALS((json="1\t"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "1");
+   ASSERT_EQUALS(json.Value(), "1");
+   ASSERT_EQUALS(json.ValueToInt(), 1);
+
+   ASSERT_EQUALS((json="0,"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "0");
+   ASSERT_EQUALS(json.Value(), "0");
+   ASSERT_EQUALS(json.ValueToInt(), 0);
+
+   ASSERT_EQUALS((json=" 0\r"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json.Stringfy(), "0");
+   ASSERT_EQUALS(json.Value(), "0");
+   ASSERT_EQUALS(json.ValueToInt(), 0);
+
 // long
    ASSERT_EQUALS(json="3167042642",true)
    ASSERT_EQUALS(json.JsonType(),JSON_TYPE_INT)
@@ -69,6 +111,17 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Stringfy(), "\"name\"");
    ASSERT_EQUALS(json.Value(), "name");
 
+   ASSERT_EQUALS((json="5GreenCandles5Strategy"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json.Stringfy(), "\"5GreenCandles5Strategy\"");
+   ASSERT_EQUALS(json.Value(), "5GreenCandles5Strategy");
+
+// null
+   ASSERT_EQUALS((json="null"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json.Stringfy(), "null");
+   ASSERT_EQUALS(json.Value(), "null");
+
 // double as string
    ASSERT_EQUALS((json="\"1.123\""), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_STRING);
@@ -88,6 +141,11 @@ int TestCJson(void)
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json.Stringfy(), "{}");
    ASSERT_EQUALS(json.Total(), 0);
+
+// object with null
+   ASSERT_EQUALS((json="{\"var\":null,\"var2\":0}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"var\":null,\"var2\":0}");
 
    ASSERT_EQUALS((json="{Name1:\"Willian\"}"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
@@ -163,6 +221,132 @@ int TestCJson(void)
    ASSERT_EQUALS(json[0].Type(), JSON_TYPE_OBJECT);
    ASSERT_EQUALS(json[0].Stringfy(), "{}");
    ASSERT_EQUALS(json[0].Total(), 0);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"index\": 0\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"index\": 0,\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS((ENUM_JSON_TYPE)json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "      \"index\": 0\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS((ENUM_JSON_TYPE)json.JsonType(), (ENUM_JSON_TYPE)JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"logprobs\":null,\r\n"
+      + "      \"index\": 0,\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "      \"index\": 0,\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"index\": 0,\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 2);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"index\": 0,\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "      \"finish_reason\": \"stop\"\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Total(), 3);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json["finish_reason"].JsonType(), JSON_TYPE_STRING);
+
+   text =
+      ""
+      + "    {\r\n"
+      + "      \"index\": 0,\r\n"
+      + "      \"message\": {\r\n"
+      + "        \"role\": \"assistant\",\r\n"
+      + "        \"content\": \"The image features a scenic landscape with a wooden pathway leading through a lush green area. The path is surrounded by tall grasses and various types of vegetation. In the background, there are trees and a blue sky with some clouds, indicating a clear day. The overall scene conveys a sense of tranquility and natural beauty.\",\r\n"
+      + "        \"refusal\": null\r\n"
+      + "      },\r\n"
+      + "      \"logprobs\": null,\r\n"
+      + "      \"finish_reason\": \"stop\"\r\n"
+      + "    }\r\n"
+      + "";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Total(), 4);
+   ASSERT_EQUALS(json.JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["index"].JsonType(), JSON_TYPE_INT);
+   ASSERT_EQUALS(json["message"].JsonType(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["logprobs"].JsonType(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json["finish_reason"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["message"]["role"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["message"]["content"].JsonType(), JSON_TYPE_STRING);
+   ASSERT_EQUALS(json["message"]["refusal"].JsonType(), JSON_TYPE_NULL);
+   ASSERT_EQUALS(json["message"]["content"].Value(), "The image features a scenic landscape with a wooden pathway leading through a lush green area. The path is surrounded by tall grasses and various types of vegetation. In the background, there are trees and a blue sky with some clouds, indicating a clear day. The overall scene conveys a sense of tranquility and natural beauty.");
 
    text =
       ""
@@ -264,6 +448,31 @@ int TestCJson(void)
    ASSERT_EQUALS(json["choices"][0]["message"]["content"].JsonType(),STRING);
    ASSERT_EQUALS(json["choices"][0]["message"]["content"].Value(), "Ação: Comprar; Preço De Entrada: 1.4900; Stop: 1.4800; Take: 1.5100; Motivo: A recente recuperação do preço acima da média móvel, juntamente com o RSI em tendência de alta, sugere um impulso positivo.");
 
+   text =
+      ""
+      + "{"
+      + "  \"name\": \"5GreenCandles5Strategy\","
+      + "}\r\n";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["name"].Value(), "5GreenCandles5Strategy");
+
+   text =
+      ""
+      + "{"
+      + "  \"name\": \"5GreenCandles5Strategy\","
+      + "  \"buy\": {"
+      + "    \"open\": {"
+      + "      \"rule\": \"C[1] > O[1] AND C[2] > O[2] AND C[3] > O[3] AND C[4] > O[4] AND C[5] > O[5]\""
+      + "    }"
+      + "  }"
+      + "}"
+      +"}\r\n";
+   ASSERT_EQUALS((json=text), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json["name"].Value(),"5GreenCandles5Strategy")
+   ASSERT_EQUALS(json["buy"]["open"]["rule"].Value(),"C[1] > O[1] AND C[2] > O[2] AND C[3] > O[3] AND C[4] > O[4] AND C[5] > O[5]")
+
 // array with 2 object
    ASSERT_EQUALS((json="[{},{}]"), true);
    ASSERT_EQUALS(json.Type(), JSON_TYPE_ARRAY);
@@ -296,6 +505,14 @@ int TestCJson(void)
    ASSERT_EQUALS(json.KeyExist("name"),true);
    ASSERT_EQUALS(json["name"].Value(),"default");
    ASSERT_EQUALS(json["name"].Type(),JSON_TYPE_STRING);
+
+   ASSERT_EQUALS((json="{number: 0,}"), true);
+   ASSERT_EQUALS(json.Type(), JSON_TYPE_OBJECT);
+   ASSERT_EQUALS(json.Stringfy(), "{\"number\":0}");
+   ASSERT_EQUALS(json.Total(), 1);
+   ASSERT_EQUALS(json.KeyExist("number"),true);
+   ASSERT_EQUALS(json["number"].Value(),"0");
+   ASSERT_EQUALS(json["number"].Type(),JSON_TYPE_INT);
 
 // object with 1 key without aspos and single aspos on string
    ASSERT_EQUALS((json="{name:'default'}"), true);
